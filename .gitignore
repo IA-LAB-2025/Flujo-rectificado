@@ -1,0 +1,35 @@
+# Carpetas de datasets
+# Entornos virtuales
+env/
+venv/
+.venv/
+
+#dataset/
+dataset sin seleccionar/
+*.zip
+*.tar.gz
+*.rar
+*.npy
+# Modelos pesados y checkpoints
+*.h5
+*.pt
+*.pth
+*.ckpt
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# Archivos de Jupyter
+.ipynb_checkpoints/
+
+# Configuraciones locales / IDE
+.vscode/
+.idea/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
