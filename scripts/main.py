@@ -1,8 +1,8 @@
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
-from model import ConNet, Rectifiedflow
-from train_rectified_flow import train_rectified_flow
+from models.model import ConNet, Rectifiedflow
+from train.train_rectified_flow import train_rectified_flow
 from tqdm import tqdm
 
 #Cargamos los datos:
