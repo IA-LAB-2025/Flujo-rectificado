@@ -4,7 +4,11 @@ env/
 venv/
 .venv/
 
-#dataset/
+# Ignorar datasets pesados pero no las carpetas
+dataset/*
+!dataset/.gitkeep
+!dataset/pi_0/
+!dataset/pi_1/
 dataset sin seleccionar/
 *.zip
 *.tar.gz
