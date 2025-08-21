@@ -8,7 +8,7 @@ class ConNet(nn.Module):
         self.conv1 = nn.Conv2d(in_channels + 1, hidden_channels, kernel_size=3, padding=1)
         self.conv2 = nn.Conv2d(hidden_channels, hidden_channels, kernel_size=3, padding=1)
         self.conv3 = nn.Conv2d(hidden_channels, out_channels, kernel_size=3, padding=1)
-        self.act = nn.Tanh()
+        self.act = nn.ReLU()
         
     def forward(self, x_input, t):
         batch_size, _, H, W = x_input.shape

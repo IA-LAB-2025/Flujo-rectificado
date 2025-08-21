@@ -5,14 +5,13 @@ from models.model import ConNet, Rectifiedflow
 from train.train_rectified_flow import train_rectified_flow
 
 # Carga los datos originales
-path_noise = r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\noise_subset_500.npy"
-path_cartoon = r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\cartoon_subset_500.npy"
-noise = np.load(path_noise)
-cartoon = np.load(path_cartoon)
-noise = noise / 255.0 if noise.max() > 1 else noise
-cartoon = cartoon / 255.0 if cartoon.max() > 1 else cartoon
-x0 = torch.tensor(noise, dtype=torch.float32).permute(0, 3, 1, 2)
-x1 = torch.tensor(cartoon, dtype=torch.float32).permute(0, 3, 1, 2)
+path_pi_0 = r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\noise_subset_500.npy"
+path_pi_1 = r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\cartoon_subset_500.npy"
+pi_0 = np.load(path_pi_0)
+pi_1 = np.load(path_pi_1)
+
+x0 = torch.tensor(pi_0, dtype=torch.float32).permute(0, 3, 1, 2)
+x1 = torch.tensor(pi_1, dtype=torch.float32).permute(0, 3, 1, 2)
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
@@ -47,7 +46,7 @@ plt.plot(loss_curve2)
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
 plt.title('Training Loss Curve Flow 2')
-plt.savefig('loss_curve flow 2.png')
+#plt.savefig('loss_curve flow 2.png')
 plt.show()
 # Guarda el segundo modelo
 torch.save(model2.state_dict(), "rectifiedflow2_model.pth")

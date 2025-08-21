@@ -5,8 +5,9 @@ from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 # Cargamos los datasets
-path_pi1 = r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\cartoon_subset_500.npy"
-path_pi0 = r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\noise_subset_500.npy"
+path_pi1 = r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\pi_1\pi_1_np_10_50_50_gen.npy"
+path_pi0 = r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\pi_0\pi_0_np_10_50_50_gen.npy"
+
 pi1_np = np.load(path_pi1) #--> (N,H,W,C)
 pi0_np = np.load(path_pi0) #--> (N,H,W,C)
 # Aplanamos las imágenes:
