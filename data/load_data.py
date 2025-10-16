@@ -4,20 +4,19 @@ import os
 import random
 from PIL import Image
 import numpy as np
-'''
-Cartoonset10k: C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\dataset sin seleccionar\cartoonset10k\cartoonset10k
-Celab: C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\dataset sin seleccionar\img_align_celeba\img_align_celeba
 
-'''
+#Cartoonset10k: r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\dataset sin seleccionar\cartoonset10k\cartoonset10k"
+#Celab: r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\dataset sin seleccionar\img_align_celeba\img_align_celeba"
+
 # ========================== Variables ===========================
 # Rutas de los datos
 dataset_pi_0 = None # Aquí se define si se quiere generar imágenes o cambiar de dominio
 dataset_pi_1 = r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\dataset sin seleccionar\cartoonset10k\cartoonset10k"
 # Redimensión de las imágenes
-H, W = 50, 50 # Altura y Ancho de las imágenes
+H, W = 100, 100 # Altura y Ancho de las imágenes
 # Número de imágenes que se quieran en el dataset
 #Por el mometo lo máximo es de 10,000 Imégenes
-N = 10
+N = 1000
 #Ruta donde se guardarán los datos pi_0
 path_pi_0 = r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\pi_0"
 #Ruta donde se guardarán los datos pi_1

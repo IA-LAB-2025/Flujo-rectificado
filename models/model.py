@@ -3,7 +3,7 @@ import torch.nn as nn
 
 class ConNet(nn.Module):
     '''Convolutional Neural Network for image processing with time conditioning.'''
-    def __init__(self, in_channels=3, hidden_channels=64, out_channels=3):
+    def __init__(self, in_channels=3, hidden_channels=100, out_channels=3):
         super().__init__()
         self.conv1 = nn.Conv2d(in_channels + 1, hidden_channels, kernel_size=3, padding=1)
         self.conv2 = nn.Conv2d(hidden_channels, hidden_channels, kernel_size=3, padding=1)

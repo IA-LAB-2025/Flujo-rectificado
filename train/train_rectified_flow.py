@@ -29,8 +29,8 @@ def train_rectified_flow(rectified_flow, optimizer, pairs, batchsize, inner_iter
             batch_x0, batch_x1 = batch_x0.to(device), batch_x1.to(device)
 
             # Muestras aleatorias de t en [0, 1], con misma forma que el batch (N, 1, 1, 1)
-            #t = torch.rand(batch_x0.size(0), 1, 1, 1, device=device)
-            t = torch.rand(batch_x0.size(0), 1, device=device)
+            t = torch.rand(batch_x0.size(0), 1, 1, 1, device=device)  # (batch,1,1,1)
+
 
             # Interpolación lineal entre x0 (ruido) y x1 (imagen)
             xt = (1 - t) * batch_x0 + t * batch_x1
