@@ -1,24 +1,48 @@
+import torch
 import matplotlib.pyplot as plt
-import numpy as np
+from torchvision.utils import save_image, make_grid
+import random
+def sample_rectified_flow(model, Z0_batch, num_steps, device):
+    """
+    Simula la ODE del Rectified Flow utilizando el método de Euler.
 
-pi_1_np = np.load(r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\pi_1\pi_1_np_10_50_50_gen.npy")
-pi_0_np = np.load(r"C:\Users\gilda\Desktop\VS\Python\Flujo Rectificado Propuesta\dataset\pi_0\pi_0_np_10_50_50_gen.npy")
-idx = 1
+    Args:
+        model (nn.Module): El modelo U-Net entrenado v(X, t).
+        Z0_batch (torch.Tensor): Lote de ruido inicial (Z0 ~ π0).
+        num_steps (int): Número de pasos de discretización (N).
+        device (torch.device): Dispositivo (CPU o CUDA).
 
-#Verificamos el rango de valores
-img_array = pi_1_np[idx]
-print(img_array.shape)
-print(img_array.dtype)
-print(img_array.min(), img_array.max())
+    Returns:
+        torch.Tensor: Lote de imágenes generadas (Z1).
+    """
+    # CRÍTICO: Poner el modelo en modo de evaluación y desactivar gradientes
+    model.eval() 
+    Z_t = Z0_batch.to(device)
+    # Lista para almacenar las trayectorias: [Z0, Z_t1, Z_t2, ..., Z1]
+    # Inicia con Z0
+    trajectories = [Z_t.cpu().clone()]
+    # El tiempo avanza de 0 a 1
+    dt = 1.0 / num_steps
+    
+    with torch.no_grad():
+        for i in range(num_steps):
+            # Tiempo actual t (Euler usa el punto inicial del intervalo)
+            t_start = i * dt
+            
+            # Convertir el tiempo escalar a un tensor 1D (B) para el modelo
+            t_tensor = torch.full((Z_t.size(0),), t_start, device=device)
+            
+            # 1. Obtener la velocidad predicha v(Zt, t)
+            # Pasamos Z_t (imagen) y t_tensor (tiempo)
+            V_pred = model(Z_t, t_tensor)
+            
+            # 2. Paso de Euler: Z(t + dt) = Z(t) + v(Z(t), t) * dt
+            Z_t = Z_t + V_pred * dt
+            # GUARDAR: Almacena el estado de Z_t después de cada paso
+            trajectories.append(Z_t.cpu().clone())
+        # Z_t al final de la simulación es Z1
+        Z1_generated = Z_t
+        
+    model.train() # Volver al modo entrenamiento
+    return Z1_generated, torch.stack(trajectories, dim=0)
 
-# Visualizamos de acuerdo a idx
-plt.figure(figsize=(6, 6))
-plt.subplot(1, 2, 1)
-plt.imshow(pi_1_np[idx])
-plt.axis('off')
-plt.title(f'Image at Index {idx}')
-plt.subplot(1, 2, 2)
-plt.imshow(pi_0_np[idx])
-plt.axis('off')
-plt.suptitle(f'Image and Noise at Index {idx}')
-plt.show()
