@@ -157,13 +157,17 @@ def main():
     ])
 
     # 3. Dataset y Dataloader
+    # Se define el dataset
     full_ds = ImageDataset(args.path_a, args.path_b, transform, max_samples=args.limit)
-    
+    # Definir el generador con semilla fija
+    generator = torch.Generator().manual_seed(42)
     # División Train/Val (90% - 10%)
+    # Se define el tamaño de la división de los datos
     train_size = int(0.9 * len(full_ds))
     val_size = len(full_ds) - train_size
-    train_ds, val_ds = random_split(full_ds, [train_size, val_size])
-
+    # divisón de los datos
+    train_ds, val_ds = random_split(full_ds, [train_size, val_size],generator=generator)
+    # Se define el dataloader
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True, num_workers=4)
     val_loader = DataLoader(val_ds, batch_size=args.batch_size, shuffle=False, num_workers=4)
 
